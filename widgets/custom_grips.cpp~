@@ -1,0 +1,261 @@
+#include <widgets/custom_grips.hpp>
+
+CustomGrip::CustomGrip(QWidget *parent, enum Qt::Edge position,
+		       bool disable_color) : QWidget(parent) {
+  this->parent = parent;
+  this->setParent(parent);
+  // this->wi = Widgets();
+  if (position == Qt::TopEdge) {
+    
+  }
+  else if (position == Qt::BottomEdge) {
+    
+  }
+  if (position == Qt::LeftEdge) {
+    
+  }
+  if (position == Qt::RightEdge) {
+    
+  }
+  
+}
+
+void CustomGrip::mouseReleaseEvent(QMouseEvent* event) {
+}
+
+void CustomGrip::resizeEvent(QResizeEvent *event) {
+}
+
+Widgets::Widgets() : m_container_top(nullptr), m_top_left(nullptr),
+		     m_top(nullptr), m_top_right(nullptr), m_top_layout(nullptr) {
+}
+
+void Widgets::top(QWidget* Form) {
+  if (Form->objectName().isEmpty()) {
+    Form->setObjectName("Form");
+  }
+  this->m_container_top = new QFrame(Form);
+  this->m_container_top->setObjectName("container_top");
+  this->m_container_top->setGeometry(QRect(0, 0, 500, 10));
+  this->m_container_top->setMinimumSize(QSize(0, 10));
+  this->m_container_top->setMaximumSize(QSize(16777215, 10));
+  this->m_container_top->setFrameShape(QFrame::NoFrame);
+  this->m_container_top->setFrameShadow(QFrame::Raised);
+  this->m_top_layout = new QHBoxLayout(this->m_container_top);
+  this->m_top_layout->setSpacing(0);
+  this->m_top_layout->setObjectName("top_layout");
+  this->m_top_layout->setContentsMargins(0, 0, 0, 0);
+  this->m_top_left = new QFrame(this->m_container_top);
+  this->m_top_left->setObjectName("top_left");
+  this->m_top_left->setMinimumSize(QSize(10, 10));
+  this->m_top_left->setMaximumSize(QSize(10, 10));
+  this->m_top_left->setCursor(QCursor(Qt::SizeFDiagCursor));
+  this->m_top_left->setStyleSheet("background-color: rgb(33, 37, 43);");
+  this->m_top_left->setFrameShape(QFrame::NoFrame);
+  this->m_top_left->setFrameShadow(QFrame::Raised);
+  this->m_top_layout->addWidget(this->m_top_left);
+  this->m_top = new QFrame(this->m_container_top);
+  this->m_top->setObjectName("top");
+  this->m_top->setCursor(QCursor(Qt::SizeVerCursor));
+  this->m_top->setStyleSheet("background-color: rgb(85, 255, 255);");
+  this->m_top->setFrameShape(QFrame::NoFrame);
+  this->m_top->setFrameShadow(QFrame::Raised);
+  this->m_top_layout->addWidget(this->m_top);
+  this->m_top_right = new QFrame(this->m_container_top);
+  this->m_top_right->setObjectName("top_right");
+  this->m_top_right->setMinimumSize(QSize(10, 10));
+  this->m_top_right->setMaximumSize(QSize(10, 10));
+  this->m_top_right->setCursor(QCursor(Qt::SizeBDiagCursor));
+  this->m_top_right->setStyleSheet("background-color: rgb(33, 37, 43);");
+  this->m_top_right->setFrameShape(QFrame::NoFrame);
+  this->m_top_right->setFrameShadow(QFrame::Raised);
+  this->m_top_layout->addWidget(this->m_top_right);
+}
+
+void Widgets::bottom(QWidget* Form) {
+  if (Form->objectName().isEmpty()) {
+    Form->setObjectName("Form");
+  }
+    this->m_container_bottom = new QFrame(Form);
+    this->m_container_bottom->setObjectName("container_bottom");
+    this->m_container_bottom->setGeometry(QRect(0, 0, 500, 10));
+    this->m_container_bottom->setMinimumSize(QSize(0, 10));
+    this->m_container_bottom->setMaximumSize(QSize(16777215, 10));
+    this->m_container_bottom->setFrameShape(QFrame::NoFrame);
+    this->m_container_bottom->setFrameShadow(QFrame::Raised);
+    this->m_bottom_layout = new QHBoxLayout(this->m_container_bottom);
+    this->m_bottom_layout->setSpacing(0);
+    this->m_bottom_layout->setObjectName("bottom_layout");
+    this->m_bottom_layout->setContentsMargins(0, 0, 0, 0);
+    this->m_bottom_left = new QFrame(this->m_container_bottom);
+    this->m_bottom_left->setObjectName("bottom_left");
+    this->m_bottom_left->setMinimumSize(QSize(10, 10));
+    this->m_bottom_left->setMaximumSize(QSize(10, 10));
+    this->m_bottom_left->setCursor(QCursor(Qt::SizeBDiagCursor));
+    this->m_bottom_left->setStyleSheet("background-color: rgb(33, 37, 43);");
+    this->m_bottom_left->setFrameShape(QFrame::NoFrame);
+    this->m_bottom_left->setFrameShadow(QFrame::Raised);
+    this->m_bottom_layout->addWidget(this->m_bottom_left);
+    this->m_bottom = new QFrame(this->m_container_bottom);
+    this->m_bottom->setObjectName("bottom");
+    this->m_bottom->setCursor(QCursor(Qt::SizeVerCursor));
+    this->m_bottom->setStyleSheet("background-color: rgb(85, 170, 0);");
+    this->m_bottom->setFrameShape(QFrame::NoFrame);
+    this->m_bottom->setFrameShadow(QFrame::Raised);
+    this->m_bottom_layout->addWidget(this->m_bottom);
+    this->m_bottom_right = new QFrame(this->m_container_bottom);
+    this->m_bottom_right->setObjectName("bottom_right");
+    this->m_bottom_right->setMinimumSize(QSize(10, 10));
+    this->m_bottom_right->setMaximumSize(QSize(10, 10));
+    this->m_bottom_right->setCursor(QCursor(Qt::SizeFDiagCursor));
+    this->m_bottom_right->setStyleSheet("background-color: rgb(33, 37, 43);");
+    this->m_bottom_right->setFrameShape(QFrame::NoFrame);
+    this->m_bottom_right->setFrameShadow(QFrame::Raised);
+    this->m_bottom_layout->addWidget(this->m_bottom_right);
+}
+void Widgets::left(QWidget* Form) {
+  if (Form->objectName().isEmpty()) {
+    Form->setObjectName("Form");
+  }
+  this->m_leftgrip = new QFrame(Form);
+  this->m_leftgrip->setObjectName("left");
+  this->m_leftgrip->setGeometry(QRect(0, 10, 10, 480));
+  this->m_leftgrip->setMinimumSize(QSize(10, 0));
+  this->m_leftgrip->setCursor(QCursor(Qt::SizeHorCursor));
+  this->m_leftgrip->setStyleSheet("background-color: rgb(255, 121, 198);");
+  this->m_leftgrip->setFrameShape(QFrame::NoFrame);
+  this->m_leftgrip->setFrameShadow(QFrame::Raised);
+}
+void Widgets::right(QWidget* Form) {
+  if (Form->objectName().isEmpty()) {
+    Form->setObjectName("Form");
+  }
+  Form->resize(500, 500);
+  this->m_rightgrip = new QFrame(Form);
+  this->m_rightgrip->setObjectName("right");
+  this->m_rightgrip->setGeometry(QRect(0, 0, 10, 500));
+  this->m_rightgrip->setMinimumSize(QSize(10, 0));
+  this->m_rightgrip->setCursor(QCursor(Qt::SizeHorCursor));
+  this->m_rightgrip->setStyleSheet("background-color: rgb(255, 0, 127);");
+  this->m_rightgrip->setFrameShape(QFrame::NoFrame);
+  this->m_rightgrip->setFrameShadow(QFrame::Raised);
+}
+
+#if 0
+    def __init__(self, parent, position, disable_color = False):;
+;
+        # SETUP UI;
+        QWidget->__init__(self);
+        this->parent = parent;
+        this->setParent(parent);
+        this->wi = Widgets();
+;
+        # SHOW TOP GRIP;
+        if position == Qt::TopEdge:;
+            this->wi->top(self);
+            this->setGeometry(0, 0, this->parent->width(), 10);
+            this->setMaximumHeight(10);
+;
+            # GRIPS;
+            top_left = QSizeGrip(this->wi->top_left);
+            top_right = QSizeGrip(this->wi->top_right);
+;
+            # RESIZE TOP;
+            def resize_top(event):;
+                delta = event->pos();
+                height = max(this->parent->minimumHeight(), this->parent->height() - delta->y());
+                geo = this->parent->geometry();
+                geo->setTop(geo->bottom() - height);
+                this->parent->setGeometry(geo);
+                event->accept();
+            this->wi->top->mouseMoveEvent = resize_top;
+;
+            # ENABLE COLOR;
+            if disable_color:;
+                this->wi->top_left->setStyleSheet("background: transparent");
+                this->wi->top_right->setStyleSheet("background: transparent");
+                this->wi->top->setStyleSheet("background: transparent");
+;
+        # SHOW BOTTOM GRIP;
+        elif position == Qt::BottomEdge:;
+            this->wi->bottom(self);
+            this->setGeometry(0, this->parent->height() - 10, this->parent->width(), 10);
+            this->setMaximumHeight(10);
+;
+            # GRIPS;
+            this->m_bottom_left = QSizeGrip(this->wi->bottom_left);
+            this->m_bottom_right = QSizeGrip(this->wi->bottom_right);
+;
+            # RESIZE BOTTOM;
+            def resize_bottom(event):;
+                delta = event->pos();
+                height = max(this->parent->minimumHeight(), this->parent->height() + delta->y());
+                this->parent->resize(this->parent->width(), height);
+                event->accept();
+            this->wi->bottom->mouseMoveEvent = resize_bottom;
+;
+            # ENABLE COLOR;
+            if disable_color:;
+                this->wi->bottom_left->setStyleSheet("background: transparent");
+                this->wi->bottom_right->setStyleSheet("background: transparent");
+                this->wi->bottom->setStyleSheet("background: transparent");
+;
+        # SHOW LEFT GRIP;
+        elif position == Qt::LeftEdge:;
+            this->wi->left(self);
+            this->setGeometry(0, 10, 10, this->parent->height());
+            this->setMaximumWidth(10);
+;
+            # RESIZE LEFT;
+            def resize_left(event):;
+                delta = event->pos();
+                width = max(this->parent->minimumWidth(), this->parent->width() - delta->x());
+                geo = this->parent->geometry();
+                geo->setLeft(geo->right() - width);
+                this->parent->setGeometry(geo);
+                event->accept();
+            this->wi->leftgrip->mouseMoveEvent = resize_left;
+;
+            # ENABLE COLOR;
+            if disable_color:;
+                this->wi->leftgrip->setStyleSheet("background: transparent");
+;
+        # RESIZE RIGHT;
+        elif position == Qt::RightEdge:;
+            this->wi->right(self);
+            this->setGeometry(this->parent->width() - 10, 10, 10, this->parent->height());
+            this->setMaximumWidth(10);
+;
+            def resize_right(event):;
+                delta = event->pos();
+                width = max(this->parent->minimumWidth(), this->parent->width() + delta->x());
+                this->parent->resize(width, this->parent->height());
+                event->accept();
+            this->wi->rightgrip->mouseMoveEvent = resize_right;
+;
+            # ENABLE COLOR;
+            if disable_color:;
+                this->wi->rightgrip->setStyleSheet("background: transparent");
+;
+;
+    def mouseReleaseEvent(self, event):;
+        this->mousePos = None;
+;
+    def resizeEvent(self, event):;
+        if hasattr(this->wi, 'container_top'):;
+            this->wi->container_top->setGeometry(0, 0, this->width(), 10);
+;
+        elif hasattr(this->wi, 'container_bottom'):;
+            this->wi->container_bottom->setGeometry(0, 0, this->width(), 10);
+;
+        elif hasattr(this->wi, 'leftgrip'):;
+            this->wi->leftgrip->setGeometry(0, 0, 10, this->height() - 20);
+;
+        elif hasattr(this->wi, 'rightgrip'):;
+            this->wi->rightgrip->setGeometry(0, 0, 10, this->height() - 20);
+  ;
+};;
+;
+;
+;
+#endif;
