@@ -10,6 +10,7 @@
 class Ui_MainWindow;
 
 class UIFunctions;
+class AppFunctions;
 
 class QPropertyAnimation;
 class QParallelAnimationGroup;
@@ -64,6 +65,7 @@ class App : public QMainWindow {
   QPoint dragPos;
 
   friend class UIFunctions;
+  friend class AppFunctions;
 
   // UIFunctions members
   QPropertyAnimation* animation;

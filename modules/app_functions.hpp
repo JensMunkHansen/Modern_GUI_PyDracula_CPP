@@ -2,6 +2,7 @@
 
 class App;
 
-class AppFunction final {
+class AppFunctions final {
+public:
   static void setThemeHack(App* self);
 };

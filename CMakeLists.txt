@@ -3,7 +3,19 @@ cmake_minimum_required(VERSION 3.14)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-  
+
+string(
+    APPEND _opts
+    "$<IF:$<CXX_COMPILER_ID:MSVC>,"
+        "/W4;$<$<CONFIG:RELEASE>:/O2>,"
+        "-Wall;-Wextra;-Werror;"
+            "$<$<CONFIG:RELEASE>:-O3>"
+            "$<$<CXX_COMPILER_ID:Clang>:-stdlib=libc++>"
+    ">"
+)
+
+add_compile_options("${_opts}")
+
 project(Dracula6)
 
 find_package(Qt5 QUIET COMPONENTS Core Gui Widgets OpenGL)
@@ -33,6 +45,8 @@ set(Srcs
   app.cpp
   )
 add_executable(${PROJECT_NAME} ${Srcs} ${UI_Srcs} ${QRC} ${APP_ICON_RESOURCE_WINDOWS})
+
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_lambda_init_captures)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
   set_property(TARGET ${PROJECT_NAME} PROPERTY WIN32_EXECUTABLE true)

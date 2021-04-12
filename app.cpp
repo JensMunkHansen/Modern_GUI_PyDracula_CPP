@@ -9,6 +9,7 @@
 #include <ui_functions.hpp>
 
 #include <modules/app_settings.hpp>
+#include <modules/app_functions.hpp>
 
 App::~App() {}
 
@@ -116,16 +117,20 @@ void App::SetupUI() {
   
   // SET CUSTOM THEME
   // ///////////////////////////////////////////////////////////////
-  useCustomTheme = false;
+  useCustomTheme = true;
   themeFile = "themes/py_dracula_light.qss";
 
   // SET THEME AND HACKS
   if (useCustomTheme) {
     // LOAD AND APPLY STYLE
-    // UIFunctions::theme(this, themeFile, True);
+    std::string themeFileWithPath = QCoreApplication::applicationDirPath().toStdString();
+    themeFileWithPath += "/";
+    themeFileWithPath += themeFile;
+    UIFunctions::theme(this,
+        themeFileWithPath,
+		       true);
     // SET HACKS
-    //AppFunctions::setThemeHack(this);
-    
+    AppFunctions::setThemeHack(this);
   }
 
   // SET HOME PAGE AND SELECT MENU

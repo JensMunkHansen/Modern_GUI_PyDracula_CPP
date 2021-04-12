@@ -9,6 +9,8 @@
 
 #include <string>
 #include <regex>
+#include <fstream>
+#include <streambuf>
 
 
 #include <ui_functions.hpp>
@@ -57,6 +59,23 @@ void UIFunctions::maximize_restore(App* self) {
   }
 }
 
+void UIFunctions::theme(App* self, const std::string& file, bool useCustomTheme) {
+  if (useCustomTheme) {
+    std::ifstream t(file.c_str());
+    if (t.good()) {
+      std::string str;
+
+      t.seekg(0, std::ios::end);   
+      str.reserve(t.tellg());
+      t.seekg(0, std::ios::beg);
+      
+      str.assign((std::istreambuf_iterator<char>(t)),
+		 std::istreambuf_iterator<char>());
+      
+      self->ui->styleSheet->setStyleSheet(str.c_str());
+    }
+  }
+}
 
 void UIFunctions::toggleMenu(App* self, bool enabled) {
   self->ui->toggleButton->setEnabled(false);
@@ -144,12 +163,12 @@ void UIFunctions::addNewMenu(App* self, const QString &name,
  
 }
 QString UIFunctions::selectMenu(App* self, const QString& getStyle) {
-  QString select = getStyle + Settings::MENU_SELECTED_STYLESHEET;
+  QString select = getStyle + Settings::MENU_SELECTED_STYLESHEET.c_str();
   return select;
 }
 
 QString UIFunctions::deselectMenu(App* self, QString &getStyle) {
-  QString deselect = getStyle.replace(Settings::MENU_SELECTED_STYLESHEET, "");
+  QString deselect = getStyle.replace(Settings::MENU_SELECTED_STYLESHEET.c_str(), "");
   return deselect;
 }
 
@@ -170,17 +189,6 @@ void UIFunctions::resetStyle(App* self, const QString& widget) {
 }
 
 void UIFunctions::labelPage(App* self, const QString& text) {
-}
-
-void UIFunctions::userIcon(App* self, const QString& initialsTooltip,
-                           const QString &icon, bool showHide){
-  if (showHide) {
-    // SET TEXT
-
-    if (!icon.isEmpty()) {
-    }
-  } else {
-  }
 }
 
 void UIFunctions::dobleClickMaximizeRestore(App* self) {
@@ -286,7 +294,7 @@ void UIFunctions::toggleLeftBox(App* self, bool enable) {
     int width = self->ui->extraLeftBox->width();
     int widthRightBox = self->ui->extraRightBox->width();
     int maxExtend = Settings::LEFT_BOX_WIDTH;
-    char *color = Settings::BTN_LEFT_BOX_COLOR;
+    std::string color = Settings::BTN_LEFT_BOX_COLOR;
     int standard = 0;
     int widthExtended = 0;
     
@@ -335,7 +343,7 @@ void UIFunctions::toggleRightBox(App* self, bool enable) {
     int width = self->ui->extraRightBox->width();
     int widthLeftBox = self->ui->extraLeftBox->width();
     int maxExtend = Settings::RIGHT_BOX_WIDTH;
-    char* color = Settings::BTN_RIGHT_BOX_COLOR;
+    std::string color = Settings::BTN_RIGHT_BOX_COLOR;
     int standard = 0;
     int widthExtended = 0;
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 class Settings final {
 public:
   // APP SETTINGS
@@ -12,9 +14,9 @@ public:
   static int  TIME_ANIMATION;
 
   // BTNS LEFT AND RIGHT BOX COLORS
-  static char  BTN_LEFT_BOX_COLOR[];
-  static char  BTN_RIGHT_BOX_COLOR[];
+  static std::string  BTN_LEFT_BOX_COLOR;
+  static std::string  BTN_RIGHT_BOX_COLOR;
 
   // MENU SELECTED STYLESHEET
-  static char MENU_SELECTED_STYLESHEET[];
+  static std::string MENU_SELECTED_STYLESHEET;
 };

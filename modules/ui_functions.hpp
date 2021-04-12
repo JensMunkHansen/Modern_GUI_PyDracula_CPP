@@ -32,8 +32,6 @@ public:
   static void resetStyle(App* self, const QString& widget);
 
   static void selectStandardMenu(App* self, const QString& widget);
-  static void userIcon(App* self, const QString& initialsTooltip,
-		       const QString &icon, bool showHide);
   static void uiDefinitions(App* self);
 
   static void dobleClickMaximizeRestore(App* self);
@@ -51,5 +49,8 @@ public:
   static void resize_grips(App* self);
 
   static void start_box_animation(App* self, int widthLeftBox, int widthRightBox, const enum Direction direction);
+
+  static void theme(App* self, const std::string& file, bool useCustomTheme);
+  
 };
 
