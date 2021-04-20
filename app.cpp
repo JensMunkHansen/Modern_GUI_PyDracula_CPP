@@ -118,7 +118,7 @@ void App::SetupUI() {
   // SET CUSTOM THEME
   // ///////////////////////////////////////////////////////////////
   useCustomTheme = false;
-  themeFile = "themes/py_dracula_light.qss";
+  themeFile = "themes/py_dracula_dark.qss";
 
   // SET THEME AND HACKS
   if (useCustomTheme) {
