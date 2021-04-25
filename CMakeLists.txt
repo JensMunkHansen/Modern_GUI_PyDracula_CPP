@@ -25,6 +25,52 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+# TEST BEGIN
+function(assign_source_group)
+    foreach(_source IN ITEMS ${ARGN})
+        if (IS_ABSOLUTE "${_source}")
+            file(RELATIVE_PATH _source_rel "${CMAKE_CURRENT_SOURCE_DIR}" "${_source}")
+        else()
+            set(_source_rel "${_source}")
+        endif()
+        get_filename_component(_source_path "${_source_rel}" PATH)
+        string(REPLACE "/" "\\" _source_path_msvc "${_source_path}")
+        source_group("${_source_path_msvc}" FILES "${_source}")
+    endforeach()
+endfunction(assign_source_group)
+
+function(target_link_libraries _target)
+    set(_mode "PUBLIC")
+    foreach(_arg IN LISTS ARGN)
+        if (_arg MATCHES "INTERFACE|PUBLIC|PRIVATE|LINK_PRIVATE|LINK_PUBLIC|LINK_INTERFACE_LIBRARIES")
+            set(_mode "${_arg}")
+        else()
+            if (NOT _arg MATCHES "debug|optimized|general")
+                set_property(GLOBAL APPEND PROPERTY GlobalTargetDepends${_target} ${_arg})
+            endif()
+        endif()
+    endforeach()
+    _target_link_libraries(${_target} ${ARGN})
+endfunction()
+
+function(get_link_dependencies _target _listvar)
+    set(_worklist ${${_listvar}})
+    if (TARGET ${_target})
+        list(APPEND _worklist ${_target})
+        get_property(_dependencies GLOBAL PROPERTY GlobalTargetDepends${_target})
+        foreach(_dependency IN LISTS _dependencies)
+            if (NOT _dependency IN_LIST _worklist)
+                get_link_dependencies(${_dependency} _worklist)
+            endif()
+        endforeach()
+        set(${_listvar} "${_worklist}" PARENT_SCOPE)
+    endif()
+endfunction()
+# TEST END
+
+
 if (NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   add_definitions(-DQT_NO_DEBUG_OUTPUT)
 endif()
@@ -55,6 +101,25 @@ endif()
 add_subdirectory(modules)
 add_subdirectory(widgets)
 
-
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Gui Qt5::Widgets Qt5::OpenGL)
+
+
+if (0)
+
+# TEST BEGIN
+get_target_property(my_sources ${PROJECT_NAME} SOURCES)
+message(${my_sources})
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX "sources\\inc" FILES ${my_sources})
+
+# TEST
+get_link_dependencies(${PROJECT_NAME} _deps)
+foreach(_dep IN LISTS _deps)
+    get_target_property(_srcs ${_dep} SOURCES)
+    get_target_property(_src_dir ${_dep} SOURCE_DIR)
+    foreach(_src IN LISTS _srcs)
+        message("${_src_dir}/${_src}")
+    endforeach()
+endforeach()
+endif()
+# TEST END

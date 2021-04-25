@@ -11,6 +11,7 @@
 #include <modules/app_settings.hpp>
 #include <modules/app_functions.hpp>
 
+#include <widgets/toggle.hpp>
 App::~App() {}
 
 App::App(int argc, char* argv[]) : animation(nullptr),
@@ -109,6 +110,20 @@ void App::SetupUI() {
   
   connect(widgets->settingsTopBtn, &QPushButton::clicked,
 	  this, &App::openCloseRightBox);
+
+  QString bg("#777");
+  QString circle("#DDD");
+  //  QString active("#00BCFF");
+  QString active("#FF79C6");
+  this->toggleWidget = new Toggle(this,
+				  60,
+				  bg,
+				  circle,
+				  active);
+
+  //  active = 255, 121, 198
+    
+  widgets->verticalLayout_20->addWidget(this->toggleWidget);
   
   // SHOW APP
   // ///////////////////////////////////////////////////////////////

@@ -83,7 +83,7 @@ void UIFunctions::toggleMenu(App* self, bool enabled) {
     // GET WIDTH
     int width = self->ui->leftMenuBg->width();
     int maxExtend = Settings::MENU_WIDTH;
-    const int standard = 60;
+    const int standard = 60; // As defined in UI file
     int widthExtended = 0;
 
     // SET MAX WIDTH
@@ -319,21 +319,7 @@ void UIFunctions::toggleLeftBox(App* self, bool enable) {
       std::string styleSheet = std::regex_replace(style, std::regex(Settings::BTN_LEFT_BOX_COLOR), "");
       self->ui->toggleLeftBox->setStyleSheet(QString(styleSheet.c_str()));
     }
-#if 0
-    // ANIMATION
-    if (self->animation) {
-      delete self->animation;
-      self->animation = nullptr;
-    }    
-    self->animation = new QPropertyAnimation(self->ui->extraLeftBox, "minimumWidth");
-    self->animation->setDuration(Settings::TIME_ANIMATION);
-    self->animation->setStartValue(width);
-    self->animation->setEndValue(widthExtended);
-    self->animation->setEasingCurve(QEasingCurve::InOutQuart);
-    self->animation->start();
-#else
     UIFunctions::start_box_animation(self, width, widthRightBox, Direction::Left);
-#endif
   }
 }
 
@@ -368,21 +354,7 @@ void UIFunctions::toggleRightBox(App* self, bool enable) {
       std::string styleSheet = std::regex_replace(style, std::regex(Settings::BTN_RIGHT_BOX_COLOR), "");
       self->ui->settingsTopBtn->setStyleSheet(QString(styleSheet.c_str()));
     }
-#if 0
-    // ANIMATION
-    if (self->animation) {
-      delete self->animation;
-      self->animation = nullptr;
-    }    
-    self->animation = new QPropertyAnimation(self->ui->extraRightBox, "minimumWidth");
-    self->animation->setDuration(Settings::TIME_ANIMATION);
-    self->animation->setStartValue(width);
-    self->animation->setEndValue(widthExtended);
-    self->animation->setEasingCurve(QEasingCurve::InOutQuart);
-    self->animation->start();
-#else
     UIFunctions::start_box_animation(self, widthLeftBox, width, Direction::Right);    
-#endif
   }
 }
 
@@ -392,13 +364,13 @@ void UIFunctions::start_box_animation(App* self, int left_box_width, int right_b
 
   // Check values
   if (left_box_width == 0 && direction == Direction::Left) {
-    left_width = 240;
+    left_width = Settings::LEFT_BOX_WIDTH;
   } else {
     left_width = 0;
   }
   // Check values
   if (right_box_width == 0 && direction == Direction::Right) {
-    right_width = 240;
+    right_width = Settings::RIGHT_BOX_WIDTH;
   } else {
     right_width = 0;
   }

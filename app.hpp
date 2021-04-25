@@ -20,6 +20,8 @@ class QSizeGrip;
 
 class CustomGrip;
 
+class Toggle;
+
 class App : public QMainWindow {
   Q_OBJECT
  public:
@@ -80,4 +82,5 @@ class App : public QMainWindow {
   CustomGrip*  right_grip;
   CustomGrip*  top_grip;
   CustomGrip*  bottom_grip;
+  Toggle* toggleWidget;
 };
