@@ -116,6 +116,7 @@ bool UIFunctions::returStatus() {
 
 
 void UIFunctions::setStatus(App* self, bool status) {
+  ((void)self);
   UIFunctions::GLOBAL_STATE = status;
 }
 
@@ -127,19 +128,25 @@ void UIFunctions::enableMaximumSize(App* self, int width, int height){
 }
 
 void UIFunctions::removeTitleBar(App* self, bool status){
+  ((void)self);
   UIFunctions::GLOBAL_TITLE_BAR = (int) status;
 }
 
 void UIFunctions::labelTitle(App* self, const QString &text){
+  ((void)self);
+  ((void)text);
 }
 
 void UIFunctions::labelDescription(App* self, const QString &text){
+  ((void)self);
+  ((void)text);
 }
 
 void UIFunctions::addNewMenu(App* self, const QString &name,
                              const QString &objName,
                              const QString &icon,
                              bool isTopMenu){
+  ((void)isTopMenu);
   QFont font{};
   font.setFamily("Segoe UI");
   QPushButton* button = new QPushButton(QString::number(count), self);
@@ -163,12 +170,15 @@ void UIFunctions::addNewMenu(App* self, const QString &name,
  
 }
 QString UIFunctions::selectMenu(App* self, const QString& getStyle) {
+  ((void)self);
   QString select = getStyle + Settings::MENU_SELECTED_STYLESHEET.c_str();
   return select;
 }
 
-QString UIFunctions::deselectMenu(App* self, QString &getStyle) {
-  QString deselect = getStyle.replace(Settings::MENU_SELECTED_STYLESHEET.c_str(), "");
+QString UIFunctions::deselectMenu(App* self, const QString &getStyle) {
+  ((void)self);
+  QString styleSheet = getStyle;
+  QString deselect = styleSheet.replace(Settings::MENU_SELECTED_STYLESHEET.c_str(), "");
   return deselect;
 }
 
@@ -181,6 +191,7 @@ void UIFunctions::selectStandardMenu(App* self, const QString& widget) {
 }
 
 void UIFunctions::resetStyle(App* self, const QString& widget) {
+
   for (auto& w : self->ui->topMenu->findChildren<QPushButton*>(QString())) {
     if (w->objectName() != widget) {
       w->setStyleSheet(UIFunctions::deselectMenu(self, w->styleSheet()));
@@ -189,6 +200,8 @@ void UIFunctions::resetStyle(App* self, const QString& widget) {
 }
 
 void UIFunctions::labelPage(App* self, const QString& text) {
+  ((void)self);
+  ((void)text);
 }
 
 void UIFunctions::dobleClickMaximizeRestore(App* self) {
@@ -293,17 +306,15 @@ void UIFunctions::toggleLeftBox(App* self, bool enable) {
     // GET WIDTH
     int width = self->ui->extraLeftBox->width();
     int widthRightBox = self->ui->extraRightBox->width();
-    int maxExtend = Settings::LEFT_BOX_WIDTH;
+    //int maxExtend = Settings::LEFT_BOX_WIDTH;
     std::string color = Settings::BTN_LEFT_BOX_COLOR;
-    int standard = 0;
-    int widthExtended = 0;
-    
+    //    int standard = 0;
+
     // GET BTN STYLE;
     std::string style = self->ui->toggleLeftBox->styleSheet().toStdString().c_str();
 
     // SET MAX WIDTH;
     if (width == 0) {
-      widthExtended = maxExtend;
       // SELECT BTN;
       self->ui->toggleLeftBox->setStyleSheet(QString((style + color).c_str()));
       if (widthRightBox != 0) {
@@ -313,7 +324,6 @@ void UIFunctions::toggleLeftBox(App* self, bool enable) {
         self->ui->extraRightBox->setMinimumWidth(0);
       }
     } else {
-      widthExtended = standard;
 
       // RESET BTN;
       std::string styleSheet = std::regex_replace(style, std::regex(Settings::BTN_LEFT_BOX_COLOR), "");
@@ -328,17 +338,13 @@ void UIFunctions::toggleRightBox(App* self, bool enable) {
     // GET WIDTH;
     int width = self->ui->extraRightBox->width();
     int widthLeftBox = self->ui->extraLeftBox->width();
-    int maxExtend = Settings::RIGHT_BOX_WIDTH;
     std::string color = Settings::BTN_RIGHT_BOX_COLOR;
-    int standard = 0;
-    int widthExtended = 0;
 
     // GET BTN STYLE;
     std::string style = self->ui->settingsTopBtn->styleSheet().toStdString().c_str();
  
     // SET MAX WIDTH;
     if (width == 0) {
-      widthExtended = maxExtend;
       // SELECT BTN;
       self->ui->settingsTopBtn->setStyleSheet(QString((style + color).c_str()));
 
@@ -349,7 +355,6 @@ void UIFunctions::toggleRightBox(App* self, bool enable) {
         self->ui->extraLeftBox->setMinimumWidth(0);
       }
     } else {
-      widthExtended = standard;
       // RESET BTN;
       std::string styleSheet = std::regex_replace(style, std::regex(Settings::BTN_RIGHT_BOX_COLOR), "");
       self->ui->settingsTopBtn->setStyleSheet(QString(styleSheet.c_str()));

@@ -27,7 +27,7 @@ public:
 			 const QString &objName,
 			 const QString &icon,
 			 bool isTopMenu);
-  static QString deselectMenu(App* self, QString& getStyle);
+  static QString deselectMenu(App* self, const QString& getStyle);
 
   static void resetStyle(App* self, const QString& widget);
 

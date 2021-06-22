@@ -42,6 +42,7 @@ bool Toggle::hitButton(const QPoint &pos) const {
 }
 
 void Toggle::paintEvent(QPaintEvent* ev) {
+  ((void)ev);
   // SET PAINTER
   QPainter p(this);
   p.setRenderHint(QPainter::Antialiasing);

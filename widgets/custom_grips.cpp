@@ -1,7 +1,10 @@
 #include <widgets/custom_grips.hpp>
 
 CustomGrip::CustomGrip(QWidget *parent, enum Qt::Edge position,
-		       bool disable_color) : QWidget(parent) {
+                       bool disable_color) : QWidget(parent), wi(nullptr),
+                                             top_left(nullptr), top_right(nullptr), bottom_left(nullptr), bottom_right(nullptr),
+                                             leftgrip(nullptr), rightgrip(nullptr) {
+
   this->parent = parent;
   this->setParent(parent);
   this->wi = new Widgets();
@@ -126,6 +129,7 @@ CustomGrip::~CustomGrip() {
 }
 
 void CustomGrip::resizeEvent(QResizeEvent *event) {
+  ((void)event);
   if (this->wi->m_container_top) {
     this->wi->m_container_top->setGeometry(0, 0, this->width(), 10);
   } else if (this->wi->m_container_bottom) {
@@ -137,9 +141,11 @@ void CustomGrip::resizeEvent(QResizeEvent *event) {
   }
 }
 
-Widgets::Widgets() : m_container_top(nullptr), m_top_left(nullptr),
-		     m_top(nullptr), m_top_right(nullptr), m_top_layout(nullptr),
-		     m_container_bottom(nullptr), m_leftgrip(nullptr), m_rightgrip(nullptr) {
+Widgets::Widgets() : m_container_top(nullptr), m_container_bottom(nullptr),
+                     m_top(nullptr), m_top_left(nullptr), m_top_right(nullptr),
+                     m_rightgrip(nullptr), m_leftgrip(nullptr),
+                     m_bottom(nullptr), m_bottom_right(nullptr), m_bottom_left(nullptr) {
+
 }
 
 void Widgets::top(QWidget* Form) {
@@ -252,32 +258,3 @@ void Widgets::right(QWidget* Form) {
   this->m_rightgrip->setFrameShape(QFrame::NoFrame);
   this->m_rightgrip->setFrameShadow(QFrame::Raised);
 }
-;
-#if 0
-def __init__(self, parent, position, disable_color = False):;
-;
-// SETUP UI;
-QWidget->__init__(self);
-this->parent = parent;
-this->setParent(parent);
-def mouseReleaseEvent(self, event):;
-this->mousePos = None;
-;
-def resizeEvent(self, event):;
-if hasattr(this->wi, 'container_top'):;
-this->wi->container_top->setGeometry(0, 0, this->width(), 10);
-;
-elif hasattr(this->wi, 'container_bottom'):;
-this->wi->container_bottom->setGeometry(0, 0, this->width(), 10);
-;
-elif hasattr(this->wi, 'leftgrip'):;
-this->wi->leftgrip->setGeometry(0, 0, 10, this->height() - 20);
-;
-elif hasattr(this->wi, 'rightgrip'):;
-this->wi->rightgrip->setGeometry(0, 0, 10, this->height() - 20);
-;
-}
-;
-;
-;
-#endif;

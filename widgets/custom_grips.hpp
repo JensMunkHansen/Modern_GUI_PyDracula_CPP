@@ -39,7 +39,12 @@ class Widgets {
   void left(QWidget* Form);
   void right(QWidget* Form);
  public:
-  QFrame *m_container_top, *m_top_left, *m_top, *m_top_right, *m_rightgrip, *m_leftgrip, *m_bottom_right, *m_bottom_left, *m_container_bottom, *m_bottom;
+  QFrame *m_container_top, *m_container_bottom;
+  QFrame* m_top;
+  QFrame *m_top_left, *m_top_right;
+  QFrame *m_rightgrip, *m_leftgrip;
+  QFrame* m_bottom;
+  QFrame *m_bottom_right, *m_bottom_left;
   QHBoxLayout* m_top_layout, *m_bottom_layout;
 };
 

@@ -17,6 +17,8 @@ App::~App() {}
 App::App(int argc, char* argv[]) : animation(nullptr),
 				   shadow(nullptr),
 				   sizegrip(nullptr) {
+  ((void) argc);
+  ((void) argv);
   left_box = right_box = nullptr;
   group = nullptr;
   this->SetupUI();
@@ -164,6 +166,7 @@ void App::openCloseRightBox() {
 }
 
 void App::resizeEvent(QResizeEvent *event) {
+  ((void)event);
   this->resizeFunction();
   UIFunctions::resize_grips(this);
   //QMainWindow::resizeEvent(event);
