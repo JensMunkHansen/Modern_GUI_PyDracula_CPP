@@ -2,14 +2,14 @@
 
 CustomGrip::CustomGrip(QWidget *parent, enum Qt::Edge position,
                        bool disable_color) : QWidget(parent), wi(nullptr),
-                                             top_left(nullptr), top_right(nullptr), bottom_left(nullptr), bottom_right(nullptr),
-                                             leftgrip(nullptr), rightgrip(nullptr) {
+  top_left(nullptr), top_right(nullptr), bottom_left(nullptr), bottom_right(nullptr),
+  leftgrip(nullptr), rightgrip(nullptr) {
 
   this->parent = parent;
   this->setParent(parent);
   this->wi = new Widgets();
 
-  
+
   if (position == Qt::TopEdge) {
     this->wi->top(this);
     this->setGeometry(0, 0, this->parent->width(), 10);
@@ -26,8 +26,7 @@ CustomGrip::CustomGrip(QWidget *parent, enum Qt::Edge position,
       this->wi->m_top_right->setStyleSheet("background: transparent");
       this->wi->m_top->setStyleSheet("background: transparent");
     }
-  }
-  else if (position == Qt::BottomEdge) {
+  } else if (position == Qt::BottomEdge) {
     this->wi->bottom(this);
     this->setGeometry(0, this->parent->height() - 10, this->parent->width(), 10);
     this->setMaximumHeight(10);
@@ -65,7 +64,7 @@ CustomGrip::CustomGrip(QWidget *parent, enum Qt::Edge position,
     if (disable_color) {
       this->wi->m_rightgrip->setStyleSheet("background: transparent");
     }
-  }  
+  }
 }
 
 bool CustomGrip::eventFilter(QObject* obj, QEvent* event) {
@@ -142,9 +141,9 @@ void CustomGrip::resizeEvent(QResizeEvent *event) {
 }
 
 Widgets::Widgets() : m_container_top(nullptr), m_container_bottom(nullptr),
-                     m_top(nullptr), m_top_left(nullptr), m_top_right(nullptr),
-                     m_rightgrip(nullptr), m_leftgrip(nullptr),
-                     m_bottom(nullptr), m_bottom_right(nullptr), m_bottom_left(nullptr) {
+  m_top(nullptr), m_top_left(nullptr), m_top_right(nullptr),
+  m_rightgrip(nullptr), m_leftgrip(nullptr),
+  m_bottom(nullptr), m_bottom_right(nullptr), m_bottom_left(nullptr) {
 
 }
 

@@ -3,11 +3,11 @@
 #include <QPainter>
 
 Toggle::Toggle(QWidget* parent,
-	       int width,
-	       const QString& bg_color,
-	       const QString& circle_color,
-	       const QString& active_color,
-	       enum QEasingCurve::Type  animation_curve) : QCheckBox(parent), animation(nullptr)  {
+               int width,
+               const QString& bg_color,
+               const QString& circle_color,
+               const QString& active_color,
+               enum QEasingCurve::Type  animation_curve) : QCheckBox(parent), animation(nullptr)  {
   // SET DEFAULT PARAMETERS
   this->setFixedSize(width, 28);
   this->setCursor(Qt::PointingHandCursor);
@@ -25,8 +25,8 @@ Toggle::Toggle(QWidget* parent,
 
   // CONNECT STATE CHANGED
   QObject::connect(this, &QCheckBox::stateChanged,
-		  this, &Toggle::startTransition);
-  
+                   this, &Toggle::startTransition);
+
 }
 
 float Toggle::circlePosition() const {
@@ -58,12 +58,11 @@ void Toggle::paintEvent(QPaintEvent* ev) {
     // DRAW BG
     p.setBrush(QColor(this->_bg_color));
     p.drawRoundedRect(0, 0, rect.width(), rect.height(), rect.height() / 2, rect.height() / 2);
-		      
+
     // DRAW CIRCLE
     p.setBrush(QColor(this->_circle_color));
     p.drawEllipse(this->_circle_position, 3, 22, 22);
-  }
-  else {
+  } else {
     // DRAW BG
     p.setBrush(QColor(this->_active_color));
     p.drawRoundedRect(0, 0, rect.width(), rect.height(), rect.height() / 2, rect.height() / 2);
@@ -73,15 +72,14 @@ void Toggle::paintEvent(QPaintEvent* ev) {
     p.drawEllipse(this->_circle_position, 3, 22, 22);
 
     // END DRAW
-    p.end();  
+    p.end();
   }
 }
 void Toggle::startTransition(float value) {
   this->animation->stop(); // Stop animation if running
   if (value) {
     this->animation->setEndValue(this->width() - 26);
-  }
-  else {
+  } else {
     this->animation->setEndValue(3);
   }
   // START ANIMATION

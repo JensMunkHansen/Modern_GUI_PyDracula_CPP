@@ -15,8 +15,8 @@
 App::~App() {}
 
 App::App(int argc, char* argv[]) : animation(nullptr),
-				   shadow(nullptr),
-				   sizegrip(nullptr) {
+  shadow(nullptr),
+  sizegrip(nullptr) {
   ((void) argc);
   ((void) argv);
   left_box = right_box = nullptr;
@@ -30,14 +30,14 @@ void App::buttonClick() {
   const QString& btnName = btn->objectName();
 
   Ui_MainWindow* widgets = this->ui;
-  
+
   // SHOW HOME PAGE
   if (btnName == "btn_home") {
     widgets->stackedWidget->setCurrentWidget(widgets->home);
     UIFunctions::resetStyle(this, btnName);
     btn->setStyleSheet(UIFunctions::selectMenu(this, btn->styleSheet()));
   }
-  
+
   // SHOW WIDGETS PAGE
   if (btnName == "btn_widgets") {
     widgets->stackedWidget->setCurrentWidget(widgets->widgets);
@@ -52,10 +52,10 @@ void App::buttonClick() {
   }
   if (btnName == "btn_save") {
     printf("Save BTN clicked!\n");
-    
+
     // PRINT BTN NAME
     printf("Button %s pressed!", btnName.toStdString().c_str());
-  }  
+  }
 }
 
 void App::SetupUI() {
@@ -63,7 +63,7 @@ void App::SetupUI() {
   this->ui->setupUi(this);
 
   Ui_MainWindow* widgets = this->ui;
-  
+
   // USE CUSTOM TITLE BAR | USE AS "False" FOR MAC OR LINUX
   ///////////////////////////////////////////////////////////////
   Settings::ENABLE_CUSTOM_TITLE_BAR = true;
@@ -79,10 +79,10 @@ void App::SetupUI() {
   // TOGGLE MENU
   // ///////////////////////////////////////////////////////////////
   connect(this->ui->toggleButton, &QPushButton::clicked,
-          [this]() {
-            UIFunctions::toggleMenu(this, true);
-          });
-  
+  [this]() {
+    UIFunctions::toggleMenu(this, true);
+  });
+
   // SET UI DEFINITIONS
   // ///////////////////////////////////////////////////////////////
   UIFunctions::uiDefinitions(this);
@@ -96,42 +96,42 @@ void App::SetupUI() {
 
   // LEFT MENUS
   connect(widgets->btn_home, &QPushButton::clicked,
-	  this, &App::buttonClick);
+          this, &App::buttonClick);
   connect(widgets->btn_widgets, &QPushButton::clicked,
-	  this, &App::buttonClick);
+          this, &App::buttonClick);
   connect(widgets->btn_new, &QPushButton::clicked,
-	  this, &App::buttonClick);
+          this, &App::buttonClick);
   connect(widgets->btn_save, &QPushButton::clicked,
-	  this, &App::buttonClick);
+          this, &App::buttonClick);
 
   connect(widgets->toggleLeftBox, &QPushButton::clicked,
-	  this, &App::openCloseLeftBox);
+          this, &App::openCloseLeftBox);
 
   connect(widgets->extraCloseColumnBtn, &QPushButton::clicked,
-	  this, &App::openCloseLeftBox);
-  
+          this, &App::openCloseLeftBox);
+
   connect(widgets->settingsTopBtn, &QPushButton::clicked,
-	  this, &App::openCloseRightBox);
+          this, &App::openCloseRightBox);
 
   QString bg("#777");
   QString circle("#DDD");
   //  QString active("#00BCFF");
   QString active("#FF79C6");
   this->toggleWidget = new Toggle(this,
-				  60,
-				  bg,
-				  circle,
-				  active);
+                                  60,
+                                  bg,
+                                  circle,
+                                  active);
 
   //  active = 255, 121, 198
-    
+
   widgets->verticalLayout_20->addWidget(this->toggleWidget);
-  
+
   // SHOW APP
   // ///////////////////////////////////////////////////////////////
   this->show();
-  
-  
+
+
   // SET CUSTOM THEME
   // ///////////////////////////////////////////////////////////////
   useCustomTheme = false;
@@ -144,8 +144,8 @@ void App::SetupUI() {
     themeFileWithPath += "/";
     themeFileWithPath += themeFile;
     UIFunctions::theme(this,
-        themeFileWithPath,
-		       true);
+                       themeFileWithPath,
+                       true);
     // SET HACKS
     AppFunctions::setThemeHack(this);
   }

@@ -37,7 +37,7 @@ void UIFunctions::maximize_restore(App* self) {
     self->ui->maximizeRestoreAppBtn->setToolTip("Restore");
     self->ui->maximizeRestoreAppBtn->setIcon(QIcon(":/icons/images/icons/icon_restore.png"));
     self->ui->frame_size_grip->hide();
-    
+
     self->left_grip->hide();
     self->right_grip->hide();
     self->bottom_grip->hide();
@@ -51,7 +51,7 @@ void UIFunctions::maximize_restore(App* self) {
     self->ui->maximizeRestoreAppBtn->setIcon(QIcon(":/icons/images/icons/icon_maximize.png"));
     self->ui->frame_size_grip->show();
 
-    
+
     self->left_grip->show();
     self->right_grip->show();
     self->bottom_grip->show();
@@ -65,13 +65,13 @@ void UIFunctions::theme(App* self, const std::string& file, bool useCustomTheme)
     if (t.good()) {
       std::string str;
 
-      t.seekg(0, std::ios::end);   
+      t.seekg(0, std::ios::end);
       str.reserve(t.tellg());
       t.seekg(0, std::ios::beg);
-      
+
       str.assign((std::istreambuf_iterator<char>(t)),
-		 std::istreambuf_iterator<char>());
-      
+                 std::istreambuf_iterator<char>());
+
       self->ui->styleSheet->setStyleSheet(str.c_str());
     }
   }
@@ -120,24 +120,24 @@ void UIFunctions::setStatus(App* self, bool status) {
   UIFunctions::GLOBAL_STATE = status;
 }
 
-void UIFunctions::enableMaximumSize(App* self, int width, int height){
+void UIFunctions::enableMaximumSize(App* self, int width, int height) {
   if (width != 0 && height != 0) {
     self->setMaximumSize(QSize(width, height));
     self->ui->frame_size_grip->hide();
   }
 }
 
-void UIFunctions::removeTitleBar(App* self, bool status){
+void UIFunctions::removeTitleBar(App* self, bool status) {
   ((void)self);
   UIFunctions::GLOBAL_TITLE_BAR = (int) status;
 }
 
-void UIFunctions::labelTitle(App* self, const QString &text){
+void UIFunctions::labelTitle(App* self, const QString &text) {
   ((void)self);
   ((void)text);
 }
 
-void UIFunctions::labelDescription(App* self, const QString &text){
+void UIFunctions::labelDescription(App* self, const QString &text) {
   ((void)self);
   ((void)text);
 }
@@ -145,7 +145,7 @@ void UIFunctions::labelDescription(App* self, const QString &text){
 void UIFunctions::addNewMenu(App* self, const QString &name,
                              const QString &objName,
                              const QString &icon,
-                             bool isTopMenu){
+                             bool isTopMenu) {
   ((void)isTopMenu);
   QFont font{};
   font.setFamily("Segoe UI");
@@ -161,13 +161,13 @@ void UIFunctions::addNewMenu(App* self, const QString &name,
   button->setFont(font);
 
   std::string styleSheet = std::regex_replace(Style::style_bt_standard, std::regex("ICON_REPLACE"), icon.toStdString());
-    
+
   button->setStyleSheet(QString(styleSheet.c_str()));
   button->setText(name);
   button->setToolTip(name);
   // Do we need to store this as a member?
   //  QObject::connect(button, &QPushButton::clicked, self, &App::Button);
- 
+
 }
 QString UIFunctions::selectMenu(App* self, const QString& getStyle) {
   ((void)self);
@@ -206,7 +206,9 @@ void UIFunctions::labelPage(App* self, const QString& text) {
 
 void UIFunctions::dobleClickMaximizeRestore(App* self) {
   if (UIFunctions::GLOBAL_TITLE_BAR) {
-    QTimer::singleShot(250, [self]() {UIFunctions::maximize_restore(self);});
+    QTimer::singleShot(250, [self]() {
+      UIFunctions::maximize_restore(self);
+    });
   }
 }
 
@@ -246,7 +248,7 @@ void UIFunctions::moveWindow(App* self, QMouseEvent* event) {
   }
 }
 
-void UIFunctions::uiDefinitions(App* self){
+void UIFunctions::uiDefinitions(App* self) {
   if (Settings::ENABLE_CUSTOM_TITLE_BAR) {
     // STANDARD TITLE BAR
     self->setWindowFlags(Qt::FramelessWindowHint);
@@ -263,7 +265,7 @@ void UIFunctions::uiDefinitions(App* self){
     self->right_grip = new CustomGrip(self, Qt::RightEdge, true);
     self->bottom_grip = new CustomGrip(self, Qt::BottomEdge, true);
     self->top_grip = new CustomGrip(self, Qt::TopEdge, true);
-      
+
   } else {
     self->ui->appMargins->setContentsMargins(0, 0, 0, 0);
     self->ui->minimizeAppBtn->hide();
@@ -272,7 +274,7 @@ void UIFunctions::uiDefinitions(App* self){
 
     self->ui->frame_size_grip->hide();
   }
-  
+
   // DROP SHADOW
   self->shadow = new QGraphicsDropShadowEffect(self);
   self->shadow->setBlurRadius(17);
@@ -284,19 +286,23 @@ void UIFunctions::uiDefinitions(App* self){
   // RESIZE WINDOW
   self->sizegrip = new QSizeGrip(self->ui->frame_size_grip);
   self->sizegrip->setStyleSheet("width: 20px; height: 20px; margin 0px; padding: 0px;");
-              
+
   // MINIMIZE
   QObject::connect(self->ui->minimizeAppBtn, &QPushButton::clicked,
                    self, &App::showMinimized);
-              
+
   // MAXIMIZE/RESTORE
   QObject::connect(self->ui->maximizeRestoreAppBtn, &QPushButton::clicked,
-                   self, [self]() {UIFunctions::maximize_restore(self);});
-              
+  self, [self]() {
+    UIFunctions::maximize_restore(self);
+  });
+
   // CLOSE APPLICATION
   QObject::connect(self->ui->closeAppBtn, &QPushButton::clicked,
-                   self, []() {qApp->exit();});
-              
+  self, []() {
+    qApp->exit();
+  });
+
 }
 
 
@@ -342,7 +348,7 @@ void UIFunctions::toggleRightBox(App* self, bool enable) {
 
     // GET BTN STYLE;
     std::string style = self->ui->settingsTopBtn->styleSheet().toStdString().c_str();
- 
+
     // SET MAX WIDTH;
     if (width == 0) {
       // SELECT BTN;
@@ -359,7 +365,7 @@ void UIFunctions::toggleRightBox(App* self, bool enable) {
       std::string styleSheet = std::regex_replace(style, std::regex(Settings::BTN_RIGHT_BOX_COLOR), "");
       self->ui->settingsTopBtn->setStyleSheet(QString(styleSheet.c_str()));
     }
-    UIFunctions::start_box_animation(self, widthLeftBox, width, Direction::Right);    
+    UIFunctions::start_box_animation(self, widthLeftBox, width, Direction::Right);
   }
 }
 
@@ -389,15 +395,15 @@ void UIFunctions::start_box_animation(App* self, int left_box_width, int right_b
   if (self->group) {
     delete self->group;
   }
-  
-  // ANIMATION LEFT BOX        
+
+  // ANIMATION LEFT BOX
   self->left_box = new QPropertyAnimation(self->ui->extraLeftBox, "minimumWidth");
   self->left_box->setDuration(Settings::TIME_ANIMATION);
   self->left_box->setStartValue(left_box_width);
   self->left_box->setEndValue(left_width);
   self->left_box->setEasingCurve(QEasingCurve::InOutQuart);
 
-  // ANIMATION RIGHT BOX        
+  // ANIMATION RIGHT BOX
   self->right_box = new QPropertyAnimation(self->ui->extraRightBox, "minimumWidth");
   self->right_box->setDuration(Settings::TIME_ANIMATION);
   self->right_box->setStartValue(right_box_width);

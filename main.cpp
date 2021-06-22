@@ -15,10 +15,10 @@ int main(int argc, char* argv[]) {
 
   // QT Stuff
   QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
-  QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true); 
+  QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
   //qputenv("QT_SCALE_FACTOR", "1.2");
-  
+
   QApplication app( argc, argv );
   app.setApplicationName("ITK Segmentation");
   app.setOrganizationName("Sexy Soft");
