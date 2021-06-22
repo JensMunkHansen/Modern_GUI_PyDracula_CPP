@@ -4,6 +4,8 @@ class QIcon;
 class QWidget;
 class App;
 
+#include <QSize>
+
 enum Direction {
   Left,
   Right
@@ -38,6 +40,7 @@ public:
   static bool GLOBAL_STATE;
   static bool GLOBAL_TITLE_BAR;
   static int count;
+  static QSize oldSize;
 
   static void toggleLeftBox(App* self, bool enable);
   static void toggleRightBox(App* self, bool enable);

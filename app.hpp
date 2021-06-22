@@ -33,10 +33,9 @@ class App : public QMainWindow {
   void mousePressEvent(QMouseEvent* event) override;
 
   void keyPressEvent(QKeyEvent* event) override;
-  
+
   void resizeEvent(QResizeEvent *event) override;
 
-						
 
 
  private Q_SLOTS:
@@ -44,11 +43,10 @@ class App : public QMainWindow {
   void openCloseLeftBox();
   void openCloseRightBox();
 
-  
  private:
   void resizeFunction();
 
-  bool eventFilter(QObject* obj, QEvent* event);
+  bool eventFilter(QObject* obj, QEvent* event) override;
 
   void SetupUI();
 

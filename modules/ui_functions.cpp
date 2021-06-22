@@ -27,10 +27,13 @@
 bool UIFunctions::GLOBAL_STATE = false;
 bool UIFunctions::GLOBAL_TITLE_BAR = true;
 int UIFunctions::count = 1;
+QSize UIFunctions::oldSize = QSize();
 
 void UIFunctions::maximize_restore(App* self) {
   int status = UIFunctions::GLOBAL_STATE;
   if (status == 0) {
+    // Store old size
+    UIFunctions::oldSize = QSize(self->width(), self->height());
     self->showMaximized();
     UIFunctions::GLOBAL_STATE = true;
     self->ui->appMargins->setContentsMargins(0, 0, 0, 0);
@@ -42,10 +45,9 @@ void UIFunctions::maximize_restore(App* self) {
     self->right_grip->hide();
     self->bottom_grip->hide();
     self->top_grip->hide();
-  } else {
+  } else if (self->isMaximized()) {
     UIFunctions::GLOBAL_STATE = false;
     self->showNormal();
-    self->resize(self->width()+1, self->height()+1);
     self->ui->appMargins->setContentsMargins(10, 10, 10, 10);
     self->ui->maximizeRestoreAppBtn->setToolTip("Maximize");
     self->ui->maximizeRestoreAppBtn->setIcon(QIcon(":/icons/images/icons/icon_maximize.png"));

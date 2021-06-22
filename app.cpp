@@ -68,6 +68,10 @@ void App::SetupUI() {
   ///////////////////////////////////////////////////////////////
   Settings::ENABLE_CUSTOM_TITLE_BAR = true;
 
+#if 0 //def __linux__
+  Settings::ENABLE_CUSTOM_TITLE_BAR = false;
+#endif
+
   // APP NAME
   // ///////////////////////////////////////////////////////////////
   title = "PyDracula - Modern GUI";
@@ -169,7 +173,7 @@ void App::resizeEvent(QResizeEvent *event) {
   ((void)event);
   this->resizeFunction();
   UIFunctions::resize_grips(this);
-  //QMainWindow::resizeEvent(event);
+  QMainWindow::resizeEvent(event);
 }
 
 void App::resizeFunction() {
@@ -197,5 +201,5 @@ void App::mousePressEvent(QMouseEvent* event) {
 
 bool App::eventFilter(QObject* obj, QEvent* event) {
   UIFunctions::eventFilter(this, obj, event);
-  return QWidget::eventFilter(obj, event);
+  return QMainWindow::eventFilter(obj, event);
 }
