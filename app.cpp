@@ -50,12 +50,11 @@ void App::buttonClick() {
     UIFunctions::resetStyle(this, btnName); // RESET ANOTHERS BUTTONS SELECTED
     btn->setStyleSheet(UIFunctions::selectMenu(this, btn->styleSheet())); // SELECT MENU
   }
-  if (btnName == "btn_save") {
-    printf("Save BTN clicked!\n");
-
-    // PRINT BTN NAME
-    printf("Button %s pressed!", btnName.toStdString().c_str());
+  if (btnName == "btn_exit") {
+    
   }
+  // PRINT BTN NAME
+  printf("Button %s pressed!\n", btnName.toStdString().c_str());
 }
 
 void App::SetupUI() {
@@ -117,6 +116,13 @@ void App::SetupUI() {
   connect(widgets->settingsTopBtn, &QPushButton::clicked,
           this, &App::openCloseRightBox);
 
+
+  QObject::connect(widgets->btn_exit, &QPushButton::clicked,
+  this, []() {
+    qApp->exit();
+  });
+
+  
   QString bg("#777");
   QString circle("#DDD");
   //  QString active("#00BCFF");

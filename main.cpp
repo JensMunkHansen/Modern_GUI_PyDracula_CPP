@@ -12,6 +12,11 @@ int main(int argc, char* argv[]) {
   format.setProfile(QSurfaceFormat::CoreProfile);
   QSurfaceFormat::setDefaultFormat(format);
 
+#ifdef __linux__
+  if (qEnvironmentVariableIsSet("WAYLAND_DISPLAY")) {
+    qputenv("QT_QPA_PLATFORM", "xcb");
+  }
+#endif
 
   // QT Stuff
   QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
