@@ -18,7 +18,17 @@ add_compile_options("${_opts}")
 
 project(Dracula6)
 
-find_package(Qt5 QUIET COMPONENTS Core Gui Widgets OpenGL)
+set(USE_QT6 0)
+option(Dracula_USE_QT6 "Use Qt6 for GUI" OFF)
+if (Dracula_USE_QT6)
+  set(USE_QT6 1)
+endif()
+
+if (USE_QT6)
+  find_package(Qt6 QUIET COMPONENTS Core Gui Widgets OpenGL)
+else()
+  find_package(Qt5 QUIET COMPONENTS Core Gui Widgets OpenGL)
+endif()
 
 include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
@@ -80,16 +90,21 @@ set(UIs app.ui)
 # Instruct CMake to run moc automatically when needed.
 set(CMAKE_AUTOMOC ON)
 
-qt5_wrap_ui(UI_Srcs ${UIs})
+if (USE_QT6)
+  qt6_wrap_ui(UI_Srcs ${UIs})
+  qt6_add_resources(QRC resources.qrc)
+else()
+  qt5_wrap_ui(UI_Srcs ${UIs})
+  qt5_add_resources(QRC resources.qrc)
+endif()
 
-qt5_add_resources(QRC resources.qrc)
 
 set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/qt5app.rc")
 
 set(Srcs
   main.cpp
   app.cpp
-  )
+)
 add_executable(${PROJECT_NAME} ${Srcs} ${UI_Srcs} ${QRC} ${APP_ICON_RESOURCE_WINDOWS})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_lambda_init_captures)
@@ -102,7 +117,11 @@ add_subdirectory(modules)
 add_subdirectory(widgets)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Gui Qt5::Widgets Qt5::OpenGL)
+if (USE_QT6)
+  target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Gui Qt6::Widgets Qt6::OpenGL)
+else()
+  target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Gui Qt5::Widgets Qt5::OpenGL)
+endif()
 
 
 if (0)

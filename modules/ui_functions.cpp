@@ -244,8 +244,13 @@ void UIFunctions::moveWindow(App* self, QMouseEvent* event) {
 
   // MOVE WINDOW
   if (event->buttons() == Qt::LeftButton) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     self->move(self->pos() + event->globalPos() - self->dragPos);
     self->dragPos = event->globalPos();
+#else
+    self->move(self->pos() + event->globalPosition().toPoint() - self->dragPos);
+    self->dragPos = event->globalPosition().toPoint();
+#endif
     event->accept();
   }
 }

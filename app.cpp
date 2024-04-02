@@ -193,7 +193,11 @@ void App::keyPressEvent(QKeyEvent* event) {
 
 
 void App::mousePressEvent(QMouseEvent* event) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   this->dragPos = event->globalPos();
+#else
+  this->dragPos = event->globalPosition().toPoint();
+#endif
   if (event->buttons() == Qt::LeftButton) {
     printf("Mouse click: LEFT CLICK\n");
   }

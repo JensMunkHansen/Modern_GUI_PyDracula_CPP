@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QSurfaceFormat>
+#include <QtGlobal>
 
 #include <app.hpp>
 
@@ -18,10 +19,11 @@ int main(int argc, char* argv[]) {
   }
 #endif
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   // QT Stuff
   QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
   QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
-
+#endif
   //qputenv("QT_SCALE_FACTOR", "1.2");
 
   QApplication app( argc, argv );
