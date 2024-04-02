@@ -19,7 +19,7 @@ add_compile_options("${_opts}")
 project(Dracula6)
 
 set(USE_QT6 0)
-option(Dracula_USE_QT6 "Use Qt6 for GUI" OFF)
+option(Dracula_USE_QT6 "Use Qt6 for GUI" ON)
 if (Dracula_USE_QT6)
   set(USE_QT6 1)
 endif()
@@ -37,6 +37,7 @@ include_directories(
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+if (0)
 # TEST BEGIN
 function(assign_source_group)
     foreach(_source IN ITEMS ${ARGN})
@@ -79,7 +80,7 @@ function(get_link_dependencies _target _listvar)
     endif()
 endfunction()
 # TEST END
-
+endif()
 
 if (NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   add_definitions(-DQT_NO_DEBUG_OUTPUT)
@@ -105,7 +106,8 @@ set(Srcs
   main.cpp
   app.cpp
 )
-add_executable(${PROJECT_NAME} ${Srcs} ${UI_Srcs} ${QRC} ${APP_ICON_RESOURCE_WINDOWS})
+
+qt_add_executable(${PROJECT_NAME} ${Srcs} ${UI_Srcs} ${QRC} ${APP_ICON_RESOURCE_WINDOWS})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_lambda_init_captures)
 
@@ -117,8 +119,9 @@ add_subdirectory(modules)
 add_subdirectory(widgets)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
 if (USE_QT6)
-  target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Gui Qt6::Widgets Qt6::OpenGL)
+  target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::OpenGL)
 else()
   target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Gui Qt5::Widgets Qt5::OpenGL)
 endif()

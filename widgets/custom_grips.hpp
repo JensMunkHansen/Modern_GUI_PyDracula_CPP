@@ -21,7 +21,7 @@ public:
   void resize_left(QMouseEvent* event);
   void resize_right(QMouseEvent* event);
 
-  bool eventFilter(QObject* obj, QEvent* event);
+  bool eventFilter(QObject* obj, QEvent* event) override;
   
 private:
   QWidget* parent;
