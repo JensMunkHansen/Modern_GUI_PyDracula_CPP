@@ -107,7 +107,11 @@ set(Srcs
   app.cpp
 )
 
-qt_add_executable(${PROJECT_NAME} ${Srcs} ${UI_Srcs} ${QRC} ${APP_ICON_RESOURCE_WINDOWS})
+if (USE_QT6)
+  qt_add_executable(${PROJECT_NAME} ${Srcs} ${UI_Srcs} ${QRC} ${APP_ICON_RESOURCE_WINDOWS})
+else()
+  add_executable(${PROJECT_NAME} ${Srcs} ${UI_Srcs} ${QRC} ${APP_ICON_RESOURCE_WINDOWS})
+endif()
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_lambda_init_captures)
 
