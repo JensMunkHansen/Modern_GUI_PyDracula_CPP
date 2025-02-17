@@ -1,0 +1,69 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "default",
+      "binaryDir": "build",
+      "generator": "Ninja Multi-Config"
+    },
+    {
+      "name": "linux",
+      "inherits": "default",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "windows",
+      "inherits": "default",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+        "name": "emscripten",
+        "displayName": "Emscripten",
+        "toolchainFile": "$env{HOME}/github/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake",
+        "cacheVariables": {
+            "WASMExamples_OPTIMIZATION": "BEST",
+            "WASMExamples_DEBUG": "SOURCE_MAPS"
+        }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "Debug",
+      "configurePreset": "linux",
+      "configuration": "Debug"
+    },
+    {
+      "name": "Release",
+      "configurePreset": "linux",
+      "configuration": "Release"
+    },
+    {
+      "name": "Asan",
+      "configurePreset": "linux",
+      "configuration": "Asan"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "core-test",
+      "description": "Enable output on failure",
+      "configurePreset": "linux",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}

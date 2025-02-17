@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.14)
 
+project(Dracula6)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/CMake)
+include(spsAsan)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -16,7 +21,6 @@ string(
 
 add_compile_options("${_opts}")
 
-project(Dracula6)
 
 set(USE_QT6 0)
 option(Dracula_USE_QT6 "Use Qt6 for GUI" ON)
@@ -25,7 +29,7 @@ if (Dracula_USE_QT6)
 endif()
 
 if (USE_QT6)
-  find_package(Qt6 QUIET COMPONENTS Core Gui Widgets OpenGL)
+  find_package(Qt6 QUIET COMPONENTS Core Gui Widgets)
 else()
   find_package(Qt5 QUIET COMPONENTS Core Gui Widgets OpenGL)
 endif()
@@ -91,7 +95,12 @@ set(UIs app.ui)
 # Instruct CMake to run moc automatically when needed.
 set(CMAKE_AUTOMOC ON)
 
+# Test this
+#set(CMAKE_AUTOUIC ON)
+#set(CMAKE_AUTORCC ON)
+
 if (USE_QT6)
+  #set(QRC resources.qrc)
   qt6_wrap_ui(UI_Srcs ${UIs})
   qt6_add_resources(QRC resources.qrc)
 else()
@@ -125,7 +134,7 @@ add_subdirectory(widgets)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 if (USE_QT6)
-  target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::OpenGL)
+  target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)
 else()
   target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Gui Qt5::Widgets Qt5::OpenGL)
 endif()
